@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AUREXUS</title>
+    <!-- ================= Favicon ================== -->
+    <!-- Standard -->
+    <link rel="shortcut icon" href="http://placehold.it/64.png/000/fff">
+    <!-- Retina iPad Touch Icon-->
+    <link rel="apple-touch-icon" sizes="144x144" href="http://placehold.it/144.png/000/fff">
+    <!-- Retina iPhone Touch Icon-->
+    <link rel="apple-touch-icon" sizes="114x114" href="http://placehold.it/114.png/000/fff">
+    <!-- Standard iPad Touch Icon-->
+    <link rel="apple-touch-icon" sizes="72x72" href="http://placehold.it/72.png/000/fff">
+    <!-- Standard iPhone Touch Icon-->
+    <link rel="apple-touch-icon" sizes="57x57" href="http://placehold.it/57.png/000/fff">
+    <!-- Styles -->
+    <link href="{{url_for('static',filename='assets/css/lib/calendar2/pignose.calendar.min.css')}}" rel="stylesheet">
+    <link href="{{url_for('static',filename='assets/css/lib/chartist/chartist.min.css')}}" rel="stylesheet">
+    <link href="{{url_for('static',filename='assets/css/lib/font-awesome.min.css')}}" rel="stylesheet">
+    <link href="{{url_for('static',filename='assets/css/lib/themify-icons.css')}}" rel="stylesheet">
+    <link href="{{url_for('static',filename='assets/css/lib/owl.carousel.min.css')}}" rel="stylesheet" />
+    <link href="{{url_for('static',filename='assets/css/lib/owl.theme.default.min.css')}}" rel="stylesheet" />
+    <link href="{{url_for('static',filename='assets/css/lib/weather-icons.css')}}" rel="stylesheet" />
+    <link href="{{url_for('static',filename='assets/css/lib/menubar/sidebar.css')}}" rel="stylesheet">
+    <link href="{{url_for('static',filename='assets/css/lib/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{url_for('static',filename='assets/css/lib/helper.css')}}" rel="stylesheet">
+    <link href="{{url_for('static',filename='assets/css/style.css')}}" rel="stylesheet">
+</head>
+
+<body>
+
+	{% include 'header.html' %}
+
+    <div class="content-wrap">
+        <div class="main">
+            <div class="container-fluid">
+                
+                <!-- /# row -->
+                <section id="main-content">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="card">
+							<input type="button" id="spellCheck" onclick=""></input>
+                             <table class="table">
+									<thead>
+									 <tr>
+										<th>Noms</th>
+										<th>Suggestion</th>
+									 </tr>
+									</thead>
+										<tbody>
+											<tr>
+												<td><input type="text" class="userInput" Value="Bacon"></input></td>
+												<td><div class="suggestions"></div>
+												<button class="btn btn-sm btn-primary" onclick="getSuggestions(this)">Get Suggestions</button></td>
+												
+											</tr>
+											<tr>
+												<td><input type="text" class="userInput" Value="Bocor"></input></td>
+												<td><div class="suggestions"></div>
+												<button class="btn btn-sm btn-primary" onclick="getSuggestions(this)">Get Suggestions</button></td>
+												
+											</tr>
+											<tr>
+												<td><input type="text" class="userInput" Value="Bacque"></input></td>
+												<td><div class="suggestions"></div>
+												<button class="btn btn-sm btn-primary" onclick="getSuggestions(this)">Get Suggestions</button></td>
+												
+											</tr>
+											<tr>
+												<td><input type="text" class="userInput" Value="Bacques"></input></td>
+												<td><div class="suggestions"></div>
+												<button class="btn btn-sm btn-primary" onclick="getSuggestions(this)">Get Suggestions</button></td>
+												
+											</tr>
+											<tr>
+												<td><input type="text" class="userInput" Value="Badel"></input></td>
+												<td><div class="suggestions"></div>
+												<button class="btn btn-sm btn-primary" onclick="getSuggestions(this)">Get Suggestions</button></td>
+												
+											</tr>
+											<tr>
+												<td><input type="text" class="userInput" Value="Bader"></input></td>
+												<td><div class="suggestions"></div>
+												<button class="btn btn-sm btn-primary" onclick="getSuggestions(this)">Get Suggestions</button></td>
+												
+											</tr>
+											<tr>
+												<td><input type="text" class="userInput" Value="Badie"></input></td>
+												<td><div class="suggestions"></div>
+												<button class="btn btn-sm btn-primary" onclick="getSuggestions(this)">Get Suggestions</button></td>
+												
+											</tr>
+											<tr>
+												<td><input type="text" class="userInput" Value="Sadie"></input></td>
+												<td><div class="suggestions"></div>
+												<button class="btn btn-sm btn-primary" onclick="getSuggestions(this)">Get Suggestions</button></td>
+												
+											</tr>
+											<tr>
+												<td><input type="text" class="userInput" Value="Badoures"></input></td>
+												<td><div class="suggestions"></div>
+												<button class="btn btn-sm btn-primary" onclick="getSuggestions(this)">Get Suggestions</button></td>
+											</tr>
+											<tr>
+												<td><input type="text" class="userInput" Value="Baenziger"></input></td>
+												<td><div class="suggestions"></div>
+												<button class="btn btn-sm btn-primary" onclick="getSuggestions(this)">Get Suggestions</button></td>
+											</tr>
+											<tr>
+												<td><input type="text" class="userInput" Value="Bair"></input></td>
+												<td><div class="suggestions"></div>
+												<button class="btn btn-sm btn-primary" onclick="getSuggestions(this)">Get Suggestions</button></td>
+											</tr>
+											<tr>
+												<td><input type="text" class="userInput" Value="Bafie"></input></td>
+												<td><div class="suggestions"></div>
+												<button class="btn btn-sm btn-primary" onclick="getSuggestions(this)">Get Suggestions</button></td>
+											</tr>
+											<tr>
+												<td><input type="text" class="userInput" Value="Bagard"></input></td>
+												<td><div class="suggestions"></div>
+												<button class="btn btn-sm btn-primary" onclick="getSuggestions(this)">Get Suggestions</button></td>
+											</tr>
+											<tr>
+												<td><input type="text" class="userInput" Value="Bagard"></input></td>
+												<td><div class="suggestions"></div>
+												<button class="btn btn-sm btn-primary" onclick="getSuggestions(this)">Get Suggestions</button></td>
+											</tr>
+											<tr>
+												<td><input type="text" class="userInput" Value="Bages"></input></td>
+												<td><div class="suggestions"></div>
+												<button class="btn btn-sm btn-primary" onclick="getSuggestions(this)">Get Suggestions</button></td>
+											</tr>
+											<tr>
+												<td><input type="text" class="userInput" Value="Bager"></input></td>
+												<td><div class="suggestions"></div>
+												<button class="btn btn-sm btn-primary" onclick="getSuggestions(this)">Get Suggestions</button></td>
+											</tr>
+											<tr>
+												<td><input type="text" class="userInput" Value="Baggio"></input></td>
+												<td><div class="suggestions"></div>
+												<button class="btn btn-sm btn-primary" onclick="getSuggestions(this)">Get Suggestions</button></td>
+											</tr>
+											<tr>
+												<td><input type="text" class="userInput" Value="Bagnères"></input></td>
+												<td><div class="suggestions"></div>
+												<button class="btn btn-sm btn-primary" onclick="getSuggestions(this)">Get Suggestions</button></td>
+											</tr>
+											<tr>
+												<td><input type="text" class="userInput" Value="Bager"></input></td>
+												<td><div class="suggestions"></div>
+												<button class="btn btn-sm btn-primary" onclick="getSuggestions(this)">Get Suggestions</button></td>
+											</tr>
+											<tr>
+												<td><input type="text" class="userInput" Value="Baquelins"></input></td>
+												<td><div class="suggestions"></div>
+												<button class="btn btn-sm btn-primary" onclick="getSuggestions(this)">Get Suggestions</button></td>
+											</tr>
+											<tr>
+												<td><input type="text" class="userInput" Value="Baguenault"></input></td>
+												<td><div class="suggestions"></div>
+												<button class="btn btn-sm btn-primary" onclick="getSuggestions(this)">Get Suggestions</button></td>
+											</tr>
+										</tbody>
+									</table>  
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="card">
+                                <img src="{{url_for('static',filename='assets/images/FRSHD_INV_GR_11YF_001_00000013_A.jpg')}}"></img>
+                            </div>
+                        </div>                        
+                    </div>                  
+                                        
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="footer">
+                                <p>© Aurexus. - <a href="#">aurexus.com</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- jquery vendor -->
+    <script src="{{url_for('static',filename='assets/js/lib/jquery.min.js')}}"></script>
+    <script src="{{url_for('static',filename='assets/js/lib/jquery.nanoscroller.min.js')}}"></script>
+    <!-- nano scroller -->
+    <script src="{{url_for('static',filename='assets/js/lib/menubar/sidebar.js')}}"></script>
+    <script src="{{url_for('static',filename='assets/js/lib/preloader/pace.min.js')}}"></script>
+    <!-- sidebar -->
+
+    <script src="{{url_for('static',filename='assets/js/lib/bootstrap.min.js')}}"></script>
+    <script src="{{url_for('static',filename='assets/js/scripts.js')}}"></script>
+    <!-- bootstrap -->
+
+    <script src="{{url_for('static',filename='assets/js/lib/calendar-2/moment.latest.min.js')}}"></script>
+    <script src="{{url_for('static',filename='assets/js/lib/calendar-2/pignose.calendar.min.js')}}"></script>
+    <script src="{{url_for('static',filename='assets/js/lib/calendar-2/pignose.init.js')}}"></script>
+
+
+    <script src="{{url_for('static',filename='assets/js/lib/weather/jquery.simpleWeather.min.js')}}"></script>
+    <script src="{{url_for('static',filename='assets/js/lib/weather/weather-init.js')}}"></script>
+    <script src="{{url_for('static',filename='assets/js/lib/circle-progress/circle-progress.min.js')}}"></script>
+    <script src="{{url_for('static',filename='assets/js/lib/circle-progress/circle-progress-init.js')}}"></script>
+    <script src="{{url_for('static',filename='assets/js/lib/chartist/chartist.min.js')}}"></script>
+    <script src="{{url_for('static',filename='assets/js/lib/sparklinechart/jquery.sparkline.min.js')}}"></script>
+    <script src="{{url_for('static',filename='assets/js/lib/sparklinechart/sparkline.init.js')}}"></script>
+    <script src="{{url_for('static',filename='assets/js/lib/owl-carousel/owl.carousel.min.js')}}"></script>
+    <script src="{{url_for('static',filename='assets/js/lib/owl-carousel/owl.carousel-init.js')}}"></script>
+    <!-- scripit init-->
+    <script src="{{url_for('static',filename='assets/js/dashboard2.js')}}"></script>
+	
+	<!-- Get suggestions -->
+    <script>
+        function getSuggestions(button) {
+            const row = button.closest('tr');
+            const userInput = row.querySelector('.userInput').value;
+
+            fetch('/get_suggestions', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    user_input: userInput
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                const suggestionsDiv = row.querySelector('.suggestions');
+                suggestionsDiv.innerHTML = `Filtered Suggestions: ${data.suggestions.join(', ')}`;
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+
+</html>

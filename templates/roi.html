@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        #image-container {
+            position: relative;
+        }
+
+        .annotation-box {
+            position: absolute;
+            border: 2px solid red;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255, 0, 0, 0.2);
+        }
+
+        .remove-button {
+            position: absolute;
+            top: 0;
+            right: 0;
+            cursor: pointer;
+            padding: 5px;
+            background-color: white;
+            border: 1px solid #ccc;
+        }
+    </style>
+    <title>Image Annotation Tool</title>
+</head>
+<body>
+    <div>
+        <input type="file" id="imageInput" accept="image/*" onchange="loadImage(event)">
+    </div>
+    <div id="image-container" onclick="startAnnotation(event)"></div>
+
+    <script>
+        let imageContainer = document.getElementById('image-container');
+        let imageInput = document.getElementById('imageInput');
+        let annotations = []; // Store annotation data here
+        let isDrawing = false;
+        let startX, startY, currentBox;
+
+        function loadImage(event) {
+            let file = event.target.files[0];
+            if (file) {
+                let reader = new FileReader();
+                reader.onload = function (e) {
+                    let imageUrl = e.target.result;
+                    displayImage(imageUrl);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function displayImage(imageUrl) {
+            // Clear previous annotations
+            imageContainer.innerHTML = '';
+
+            // Create image element
+            let img = document.createElement('img');
+            img.src = imageUrl;
+            img.style.width = '100%';
+            img.onload = function () {
+                imageContainer.appendChild(img);
+                // Add existing annotations
+                annotations.forEach(annotation => {
+                    drawAnnotation(annotation);
+                });
+            };
+        }
+
+        function startAnnotation(event) {
+            if (!isDrawing) {
+                isDrawing = true;
+                startX = event.clientX;
+                startY = event.clientY;
+
+                // Create a new annotation box
+                currentBox = document.createElement('div');
+                currentBox.className = 'annotation-box';
+                currentBox.style.left = startX + 'px';
+                currentBox.style.top = startY + 'px';
+                imageContainer.appendChild(currentBox);
+
+                // Listen for mousemove to resize the box
+                imageContainer.addEventListener('mousemove', updateAnnotation);
+            } else {
+                // Stop drawing and save the annotation
+                isDrawing = false;
+                imageContainer.removeEventListener('mousemove', updateAnnotation);
+
+                // Get label input from user
+                let label = prompt('Enter label for the annotation:');
+                if (label !== null) {
+                    annotations.push({
+                        left: parseInt(currentBox.style.left),
+                        top: parseInt(currentBox.style.top),
+                        width: parseInt(currentBox.style.width),
+                        height: parseInt(currentBox.style.height),
+                        label: label
+                    });
+
+                    // Add remove button
+                    addRemoveButton(currentBox);
+                } else {
+                    // Remove the current box if label input is canceled
+                    currentBox.remove();
+                }
+            }
+        }
+
+        function updateAnnotation(event) {
+            if (isDrawing) {
+                // Resize the annotation box
+                let width = event.clientX - startX;
+                let height = event.clientY - startY;
+                currentBox.style.width = width + 'px';
+                currentBox.style.height = height + 'px';
+            }
+        }
+
+        function drawAnnotation(annotation) {
+            let box = document.createElement('div');
+            box.className = 'annotation-box';
+            box.style.left = annotation.left + 'px';
+            box.style.top = annotation.top + 'px';
+            box.style.width = annotation.width + 'px';
+            box.style.height = annotation.height + 'px';
+            box.innerHTML = annotation.label; // Display label inside the box
+            imageContainer.appendChild(box);
+
+            // Add remove button
+            addRemoveButton(box);
+        }
+
+        function addRemoveButton(box) {
+            let removeButton = document.createElement('div');
+            removeButton.className = 'remove-button';
+            removeButton.innerHTML = 'Remove';
+            removeButton.onclick = function () {
+                // Remove the corresponding annotation
+                let index = Array.from(imageContainer.children).indexOf(box);
+                if (index !== -1) {
+                    annotations.splice(index, 1);
+                    box.remove();
+                }
+            };
+            box.appendChild(removeButton);
+        }
+
+        // Example: Add a sample annotation
+        annotations.push({ left: 50, top: 50, width: 100, height: 80, label: 'Example' });
+        displayImage('sample_image.jpg');
+    </script>
+</body>
+</html>

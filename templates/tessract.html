@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='https://unpkg.com/tesseract.js@v2.0.2/dist/tesseract.min.js'></script>
+	<div style="width:45%;float:left;border:0.5px solid skyblue;">
+	<h3>Multiple Language Content</h3>
+	<img src='T730001103.jpg' width='600px' /></img>
+	</div>
+	<div style="width:45%;float:left;border:0.5px solid skyblue;padding:2px;">
+	<p id='tessract'></p>
+	</div>
+	<div style="width:45%;float:left;border:0.5px solid skyblue;padding:2px;">
+	<p id='tessractrus'></p>
+	</div>
+    <div style="width:45%;float:left;border:0.5px solid skyblue;padding:2px;">
+	<textarea type="text"  ></textarea>
+	</div>		
+	<div style="width:45%;float:left;border:0.5px solid skyblue;padding:2px;clear: both;">
+	<h3>French Language Content</h3>
+	<img src='T002_006.jpg' width='600px' /></img>
+	</div>
+	<div style="width:45%;float:left;border:0.5px solid skyblue;padding:10px;">
+	<p id='tessracteng'></p>
+	</div>
+	
+</head>
+
+<body>
+    <script>
+        Tesseract.recognize(
+            'T730001103.jpg',
+            'deu+grc',
+            { logger: m => console.log(m) }
+        ).then(({ data: { text } }) => {
+            console.log(text);
+			document.getElementById("tessract").innerHTML = text;
+        })
+    </script>
+	    <script>
+        Tesseract.recognize(
+            'T730001103.jpg',
+            'grc',
+            { logger: m => console.log(m) }
+        ).then(({ data: { text } }) => {
+            console.log(text);
+			document.getElementById("tessractrus").innerHTML = text;
+        })
+    </script>
+	    <script>
+        Tesseract.recognize(
+            'T002_006.jpg',
+            'eng',
+            { logger: m => console.log(m) }
+        ).then(({ data: { text } }) => {
+            console.log(text);
+			document.getElementById("tessracteng").innerHTML = text;
+        })
+    </script>
+</body>
+
+</html>

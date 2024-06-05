@@ -1,0 +1,174 @@
+<html>
+<head>
+<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.js"></script>
+<script type="text/javascript">
+    function custom_template(obj){
+            var data = $(obj.element).data();
+            var text = $(obj.element).text();
+            if(data && data['img_src']){
+                img_src = data['img_src'];
+                template = $("<div><img src=\"" + img_src + "\" style=\"width:100%;height:150px;\"/><p style=\"font-weight: 700;font-size:14pt;text-align:center;\">" + text + "</p></div>");
+                return template;
+            }
+        }
+    var options = {
+        'templateSelection': custom_template,
+        'templateResult': custom_template,
+    }
+    $('#id_select2_example').select2(options);
+    $('.select2-container--default .select2-selection--single').css({'height': '220px'});
+
+</script>
+<style>
+body{
+font-family: 'Lato', sans-serif;
+position: relative;
+/*background: #3DA6D4;*/
+background: #030a76;
+margin: 0px;
+}
+.main-section{
+width: 460px;
+position: fixed;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+}
+.content-section{
+background: #FFF;
+border-radius: 2px;
+box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1);
+}
+.head-section{
+/*background: #F3F3F3;*/
+text-align: center;
+padding: 15px 0px;
+border-bottom: 1px solid #CECECE;
+}
+.head-section h3{
+margin: 0px;
+color: #565656;
+}
+.body-section{
+padding:15px 30px 30px 30px;
+overflow: hidden;
+}
+.body-section .form-input{
+width: 100%;
+padding: 15px 0px;
+}
+.body-section .form-input input[type='text']{
+width: calc(100% - 30px);
+border: 1px solid #D3D3D3;
+border-radius: 1px;
+padding:10px 10px;
+box-shadow: 0px 0px 0px 5px rgb(239,244,247);
+}
+
+.body-section .form-input input[type='password']{
+width: calc(100% - 30px);
+border: 1px solid #D3D3D3;
+border-radius: 1px;
+padding:10px 10px;
+box-shadow: 0px 0px 0px 5px rgb(239,244,247);
+}
+.body-section .form-input input[type='checkbox']{
+float: left;
+}
+.body-section label{
+color: #565656;
+padding: 1px 5px;
+float: left;
+}
+.body-section .btn-submit{
+float: right;
+background: #DEEDF4;
+border:1px solid #B5CBCD;
+color: #56778E;
+font-weight: bold;
+padding:7px 20px;
+border-radius: 15px;
+}
+.footer-section{
+color: #F1F1F1;
+text-align: center;
+padding-top: 15px;
+font-size: 12px;
+}
+.footer-section a{
+color: #fff;
+font-weight: bold;
+text-decoration: none;
+}
+
+</style>
+</head>
+<body>
+<div class="main-section">
+<div class="content-section">
+<div class="head-section">
+<img src="{{url_for('static',filename='assets/images/Aurexus.jpg')}}" width="100px" height="100px"></img>    
+<h3 id="medusa_title">Connexion Medusa</h3>
+</div>
+<div class="basic-form body-section">
+<form class="form" method="POST" action="/home">
+	<div class="form-group col-md-12" >
+		<label id="language">Langue: </label>
+		<label><input id="fr_btn" class="form-control-sm" type="radio" name="language" value="fr" checked></input></label><label><img class="form-control-sm" src="{{url_for('static',filename='assets/images/fr_flag.png')}}"></img></label>
+		<label><input id="en_btn" class="form-control-sm" type="radio" name="language" value="en"></input></label><img class="form-control-sm" src="{{url_for('static',filename='assets/images/us_flag.png')}}"></img></label>
+	</div> 
+	<div class="form-group col-md-12">
+	<input id="username" class="form-control" type="text" name="user" placeholder="Identifiant" required/>
+	</div>
+	<div class="form-group col-md-12">
+		<input id="password" class="form-control" type="password" name="pass" placeholder="Mot de passe" required/>
+	</div>
+	<div class="form-select form-select-lg mb-3">
+	<!--<select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="lang">
+		<option value="eng">English</option>
+		<option value="fr">French</option>
+	</select>   --> 
+	</div>
+	<div class="form-input">
+	<!--<input class="form-control-sm" type="checkbox" name="remember_me" value="1"><label id="remember">Remember me on this computer</label>-->
+<button name="login" type="submit" class="btn-submit" id="submit">Login</button>
+</div>
+</form>
+</div>
+</div>
+<!--<div class="footer-section">
+<a href="">Forgot your password?</a> <span>Click here to reset it.</span>
+</div>-->
+</div>
+<script src="{{url_for('static',filename='assets/js/lib/jquery.min.js')}}"></script>
+<script>
+    $("#fr_btn").click(function(){
+        $("#medusa_title").html('');
+        $("#medusa_title").html('Connexion Medusa');
+        $("#remember").html('');
+        $("#remember").html('Se souvenir de moi');
+        //$("#submit").html('');
+        $("#language").html('');
+        $("#language").html('Langue: ');
+        $("#username").attr("placeholder", "Identifiant");
+        $("#password").attr("placeholder", "Mot de passe");
+        
+    })
+    $("#en_btn").click(function(){
+        $("#medusa_title").html('');
+        $("#medusa_title").html('Medusa Login');
+        $("#remember").html('');
+        $("#remember").html('Remember me on this computer');
+        $("#language").html('');
+        $("#language").html('Language: ');
+        $("#username").attr("placeholder", "Username");
+        $("#password").attr("placeholder", "Password");
+    })
+   
+</script>
+</body>
+</html>

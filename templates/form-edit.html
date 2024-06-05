@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Aurexus Medusa</title>
+
+    <!-- ================= Favicon ================== -->
+    <!-- Standard -->
+    <link rel="shortcut icon" href="http://placehold.it/64.png/000/fff">
+    <!-- Retina iPad Touch Icon-->
+    <link rel="apple-touch-icon" sizes="144x144" href="http://placehold.it/144.png/000/fff">
+    <!-- Retina iPhone Touch Icon-->
+    <link rel="apple-touch-icon" sizes="114x114" href="http://placehold.it/114.png/000/fff">
+    <!-- Standard iPad Touch Icon-->
+    <link rel="apple-touch-icon" sizes="72x72" href="http://placehold.it/72.png/000/fff">
+    <!-- Standard iPhone Touch Icon-->
+    <link rel="apple-touch-icon" sizes="57x57" href="http://placehold.it/57.png/000/fff">
+
+    <!-- Styles -->
+    <link href="{{ url_for('static', filename='assets/css/lib/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/css/jquery.verySimpleImageViewer.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/css/lib/themify-icons.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/css/lib/data-table/buttons.bootstrap.min.css') }}"
+        rel="stylesheet" />
+    <link href="{{ url_for('static', filename='assets/css/lib/menubar/sidebar.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/css/lib/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/css/lib/sweetalert/sweetalert.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/css/lib/helper.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/css/style.css') }}" rel="stylesheet">
+
+    <style>
+        .image_viewer_inner_container {
+            border: 1px solid black !important;
+        }
+
+        #content::-webkit-scrollbar {
+            width: 8px;
+            color: #dcdcdf;
+
+        }
+
+        #content::-webkit-scrollbar-track {
+            background-color: rgb(234 234 239);
+
+        }
+
+        #content::-webkit-scrollbar-thumb {
+            background-color: rgb(184 184 196);
+
+        }
+
+        textarea::-webkit-scrollbar {
+            width: 5px;
+            color: #dcdcdf;
+        }
+
+        textarea::-webkit-scrollbar-track {
+            background-color: rgb(234 234 239);
+        }
+
+        textarea::-webkit-scrollbar-thumb {
+            background-color: rgb(184 184 196);
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <!-- Modal -->
+    <div class="sidebar sidebar-hide-to-small sidebar-shrink sidebar-gestures">
+        <div class="nano">
+            <div class="nano-content">
+                <ul>
+                    <div class="logo"><img src="{{url_for('static',filename='assets/images/Aurexuslogo.png')}}" width="130px" height="130px"></div>                    
+                    
+                    <li><a href="{{url_for('home')}}"><i class="ti-home"></i> Tableau de bord</a></li>                            
+                    
+					<!--<li><a href="ui-progressbar.html"><i class="ti-progress"></i> Progressbar</a></li>-->	
+					<li><a href="{{url_for('listdata')}}"><i class="ti-menu-alt"></i> Notices</a></li>
+                    <!--<li><a class="sidebar-sub-toggle"><i class="ti-layout-grid4-alt"></i> Table <span
+                                class="sidebar-collapse-icon ti-angle-down"></span></a>
+                        <ul>
+                            
+
+                            <li><a href="table-export.html">Datatable Export</a></li>
+                            <li><a href="table-row-select.html">Datatable Row Select</a></li>
+                            <li><a href="table-jsgrid.html">Editable </a></li>
+                        </ul>
+                    </li> --> 
+                    <!--<li><a href="form-basic.html"><i class="ti-view-list-alt"></i> Basic Form </a></li>-->                     
+                    <li><a href="{{url_for('logout')}}"><i class="ti-power-off"></i> Déconnexion</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /# sidebar -->
+
+    <div class="header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="float-left">
+                        <div class="hamburger sidebar-toggle">
+                            <span class="line"></span>
+                            <span class="line"></span>
+                            <span class="line"></span>
+                        </div>
+                    </div>
+                    <div class="float-left">
+                            <div class="">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="#">Notices</a></li>
+                                    
+                                </ol>
+                            </div>
+                    </div>
+                    <div class="float-left">
+                        <div class="">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a class='badge badge-warning'><b>PROJET CAEN</b></a></li>
+                                </ol>
+                            </div>
+                         
+                    </div>
+                    <div class="float-right">
+                        <div class="header-icon" disabled="disabled">
+                            <img  width="90px" height="30px" src="https://www.aurexus.com/wp-content/uploads/2021/10/1_80x50mm_adobe_illustratorwhite.png"></img>
+                        </div>
+                        <!-- <div class="header-icon">
+                            
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                             <img class="form-control-sm" src="./us_flag.png">English
+                            </button>
+                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="https://aurexusmedusa.azurewebsites.net/MedusaV3_1/fr/home.php"><img class="form-control-sm" src="./fr_flag.png">French</a>
+                             </div>
+                        </div>                        -->
+                        
+                        <div class="dropdown dib">
+                            <div class="header-icon" data-toggle="dropdown">
+                                <span class="user-avatar">{{session['name']}}
+                                    <i class="ti-angle-down f-s-10"></i>
+                                </span>
+                                <div class="drop-down dropdown-profile dropdown-menu dropdown-menu-right">
+                                    
+                                    <div class="dropdown-content-body">
+                                        <ul>                                            
+                                            <li>
+                                            <a href='#' target='_blank'>
+                                                <i class="ti-file"></i> Documentation</a>
+                                            </li>
+                                            <li>
+                                            <a href='#' onclick="myclickFunction()">
+                                                <i class="ti-power-off"></i> Logout</a>
+                                            </li>
+                                            
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content-wrap">
+        <div class="main">
+            <div class="container-fluid">
+                <div class="row">
+                    <a type="button" class="btn btn-labeled btn-primary"
+                        href="listdata?page_no={{listpage_no}}">
+                        <span class="btn-label"><i class="fa fa-fw fa-home"></i></span> Retourner
+                    </a>
+                </div>
+                <!-- /# row -->
+                <section id="main-content">
+                    <div class="row">
+                        <div class="card col-lg-6">
+
+                            <!--<div class="form-group col-md-6-right" > <button type="button" class="btn btn-labeled btn-primary">
+                <span class="btn-label"><i class="glyphicon glyphicon-chevron-left"></i></span>Prev</button>
+            <button type="button" class="btn btn-labeled btn-primary">
+                <span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span>
+                Next</button></div>-->
+                            <div id="content" style="height:600px;overflow-y:scroll;">
+                                <form method="POST" class="form-inline" style="background-color:#e6e7ec;">
+                                    <div class="form-group col-md-12">
+                                        <a href="?list={{list_prev}}"
+                                            class="col-md-6 btn btn-primary form-control input-flat col-sm text-white">&laquo;
+                                            Précédent(e)</a>
+                                        <a href="?list={{list_next}}"
+                                            class="col-md-6 btn btn-primary form-control input-flat col-sm text-white">Suivant(e)
+                                            &raquo;</a>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <table class="table table-bordered btn-primary">
+                                            <td class="text-white">Record ID:
+                                                {{ recid }}
+                                            </td>
+                                            <td class="text-white">
+                                                {{ dossier }}
+                                            </td>
+                                            <td class="text-white">
+                                                {{ image }}
+                                            </td>
+                                        </table>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label class="text-danger"><b>Traitement</b></label>
+                                        <!--<input name="anocode" ng-model="anocode" type="text" class="form-control col-sm-12" placeholder="Ano Code" value='<?php /*echo utf8_encode($anscode);*/?>'>-->
+                                        <select id="traitement" name="traitement" class="form-control col-sm-12"
+                                            style="font-size:12px;">
+                                            <option value="IMPORT" {% if traitement=="IMPORT" %} selected {% endif %}>
+                                                IMPORT</option>
+                                            <option value="DERIVATION" {% if traitement=="DERIVATION" %} selected {%
+                                                endif %}>DERIVATION</option>
+                                            <option value="DERIVATION MEME NOTICE" {% if
+                                                traitement=="DERIVATION MEME NOTICE" %} selected {% endif %}>DERIVATION
+                                                MEME NOTICE</option>
+                                            <option value="DOUBLON" {% if traitement=="DOUBLON" %} selected {% endif %}>
+                                                DOUBLON</option>
+                                            <option value="SAISIE" {% if traitement=="SAISIE" %} selected {% endif %}>
+                                                SAISIE</option>
+                                            <option value="SAISIE_DM" {% if traitement=="SAISIE_DM" %} selected {% endif
+                                                %}>SAISIE_DM</option>
+                                            <option value="SUITE" {% if traitement=="SUITE" %} selected {% endif %}>
+                                                SUITE</option>
+                                            <option value="SECONDAIRE" {% if traitement=="SECONDAIRE" %} selected {%
+                                                endif %}>SECONDAIRE</option>
+                                            <option value="VOIR" {% if traitement=="VOIR" %} selected {% endif %}>VOIR
+                                            </option>
+                                            <option value="NE PAS TRAITER" {% if traitement=="NE PAS TRAITER" %}
+                                                selected {% endif %}>NE PAS TRAITER</option>
+                                            <option value="ENRICHISSEMENT" {% if traitement=="ENRICHISSEMENT" %}
+                                                selected {% endif %}>ENRICHISSEMENT</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label class="text-danger"><b>Qcote</b></label>
+                                        <input name="qcote" ng-model="qcote" type="text" class="form-control col-sm-12"
+                                            placeholder="QCote" data-toggle="tooltip"
+                                            title="" value='{{ qcote }}'
+                                            style="font-size:12px;">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label class="text-danger"><b>Ano Code</b></label>
+                                        <!--<input name="anocode" ng-model="anocode" type="text" class="form-control col-sm-12" placeholder="Ano Code" value='<?php /*echo utf8_encode($anscode);*/?>'>-->
+                                        <input name="anocode" ng-model="anocode" type="text"
+                                            class="form-control col-sm-12" placeholder="Ano Code" value='{{ ano }}'
+                                            style="font-size:12px;">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label class="text-danger"><b>Ano Msg</b></label>
+                                        <input name="anomsg" ng-model="anomsg" type="text"
+                                            class="form-control col-sm-12" placeholder="Ano Msg" value='{{ anscode }}'
+                                            style="font-size:12px;">
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label class="text-danger"><b>TextBrut</b></label>
+                                        <textarea name="txtbrut" ng-model="txtbrut" type="text"
+                                            class="form-control col-sm-12" placeholder="TextBrut"
+                                            style="height:150px; font-size:12px;font-size:12px;">{{ txtBrut }}</textarea>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label class="text-danger"><b>Notice </b></label><a class="btn text-danger" href="{{ site_url }}" target="_blank"><i class="ti-link"></i></a>
+                                        <textarea name="notice" ng-model="notice" class="form-control col-sm-12"
+                                            placeholder="Notice" style="height: 350px;font-size:12px;font-size:12px;"
+                                            value="">{{ readable }}</textarea>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label class="text-danger"><b>Correction</b></label>
+                                        <select id="anocode" name="anocode" class="form-control col-sm-12"
+                                            style="font-size:12px;">
+                                            <option value="_" {% if anocode=="" or anocode=="_" %} selected {% endif %}>
+                                                __</option>
+                                            <option value="Ok" {% if anocode=="Ok" %} selected {% endif %}>Ok</option>
+                                            <option value="OK - ajouté" {% if anocode=="OK - ajouté" %} selected {% endif %}>OK - ajouté</option>
+                                            <option value="A revoir" {% if anocode=="A revoir" %} selected {% endif %}>A
+                                                revoir</option>
+                                            <option value="A revoir, avec modification de la notice" {% if
+                                                anocode=="A revoir, avec modification de la notice" %} selected {% endif
+                                                %}>A revoir, avec modification de la notice</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-12 float-left">
+                                        <label class="text-danger"><b>Commentaire</b></label>
+                                        <textarea id="anscode" name="anscode" ng-model="anscode" class="form-control col-sm-12"
+                                            placeholder="Ano Answer" style="height: 150px;font-size:12px;font-size:12px;"
+                                            value="">{{ anoanswer }}</textarea>
+                                    </div>
+                                    
+                                </form>
+                                <div class="form-group col-md-12">
+                                    <button class="btn btn-primary form-control input-flat col-sm" id="save_record"
+                                        name="recordsave">Sauvegarder</button>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="card col-lg-6">
+                            <div class="form-group col-md-12">
+                                <button id="prev-button" class="btn btn-sm btn-primary form-control col-md-2" id="prebtn"><<</button>
+                                <button id="next-button" class="btn btn-sm btn-primary form-control col-md-2">>></button>
+                                <button class="btn btn-sm btn-primary form-control col-md-2" id="reset"><|></button>
+								<button class="btn btn-sm btn-primary form-control col-md-2" id="ocr_do">OCR</button>
+                                <a class="col-md-2" id="imgsrs">
+                                   
+                                </a>
+                                <input type="checkbox" name="zoomset" class="" id="zoomset"> Correction de la
+                                zone de zoom</input>
+                                <span>
+                                    <div id="jquery-script-menu">
+                                        <div class="jquery-script-clear"></div>
+										
+                                    </div>
+									<textarea id="ocr" name="ocr" ng-model="ocr" class="form-control col-sm-12"
+                                            placeholder="ocr" style="height: 150px;font-size:12px;font-size:12px;"
+                                            value="" ></textarea>
+                                    <div id="imageViewerContainer" style="width: 100%; height:500px;">
+									
+                                    <img id="zoom_07" style="object-fit:fill;" src='{{ image_link }}' width="570" height="550" data-zoom='{{ image }}'></img>
+									</div>
+                                    <!--<img id="zoom_07" style="object-fit:fill;" src='<?php /*echo $image_link.$image*/?>' width="570" height="550" data-zoom='<?php /*echo $image_link.$image*/?>'></img>-->
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- /# column -->
+                    </div>
+                    <!-- /# row -->
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="footer">
+                                <p>
+                                     © Aurexus. - <a href="www.aurexus.com">aurexus.com</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- jquery vendor -->
+
+    <!--<script src="assets/js/lib/jquery.min.js"></script>-->
+    <!-- jquery vendor -->
+    <!-- nano scroller -->
+    <!-- bootstrap -->
+    <script src="{{ url_for('static', filename='') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/lib/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/jquery.verySimpleImageViewer.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/jquery.verySimpleImageViewer.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/lib/jquery.nanoscroller.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/lib/menubar/sidebar.js' ) }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/lib/preloader/pace.min.js' ) }}"></script>
+
+    <script src="{{ url_for('static', filename='assets/js/lib/bootstrap.min.js' ) }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/scripit.js' ) }}"></script>
+    <!-- scripit init-->
+
+    <!--<script type="text/javascript" src="https://pagead2.googlesyndication.com/pagead/show_ads.js"></script>-->
+
+    <script src="{{ url_for('static', filename='assets/js/lib/sweetalert/sweetalert.min.js' ) }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/lib/sweetalert/sweetalert.init.js') }}"></script>
+
+    <script>
+        function myclickFunction() {
+            window.location.href = "../index.php";
+        }
+    </script>
+    <script>
+		$(document).ready(function() {
+			 $('#ocr').hide();
+             $('#ocr_do').click(function () {
+                 $('#ocr').show().addClass('loading').val('Loading...');
+				var imageSrc = $('#zoom_07').attr('src');
+				
+				 $.ajax({
+                    url: '/analyze_image',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({                        
+                        image: imageSrc
+                    }),
+                    success: function(response) {
+                        var result = response.content.join('\n');
+                        $('#ocr').removeClass('loading').val(result);
+                    },
+                    error: function(xhr, status, error) {
+                        $('#ocr').removeClass('loading').val('Error: ' + xhr.responseText);
+                    }
+                });
+				
+			})
+		})
+        // Assuming image variable is available in the template context
+        var image = "{{ image }}";  // Example: "1A1-0006.jpg"
+
+        function navigateImage(direction) {
+            var parts = image.split('-');
+            var prefix = parts[0]; // "1A1"
+            var num = parseInt(parts[1].split('.')[0]); // 6
+            console.log("called")
+            if (direction === 'next') {
+                num += 1;
+            } else if (direction === 'prev') {
+                num -= 1;
+            }
+
+            // Ensure num has four digits with leading zeros
+            var newNum = num.toString().padStart(4, '0');
+            var newImage = prefix + '-' + newNum + '.jpg';
+
+            // Update the image variable
+            image = newImage;
+
+            // Make the request to the new URL
+            window.location.href = "/img-find/" + newImage;
+        }
+
+        document.getElementById("next-button").addEventListener("click", function() {
+            navigateImage('next');
+        });
+
+        document.getElementById("prev-button").addEventListener("click", function() {
+            navigateImage('prev');
+        });
+		
+    </script>
+</body>
+
+</html>

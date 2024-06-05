@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AUREXUS</title>
+    <!-- ================= Favicon ================== -->
+    <!-- Standard -->
+    <link rel="shortcut icon" href="http://placehold.it/64.png/000/fff">
+    <!-- Retina iPad Touch Icon-->
+    <link rel="apple-touch-icon" sizes="144x144" href="http://placehold.it/144.png/000/fff">
+    <!-- Retina iPhone Touch Icon-->
+    <link rel="apple-touch-icon" sizes="114x114" href="http://placehold.it/114.png/000/fff">
+    <!-- Standard iPad Touch Icon-->
+    <link rel="apple-touch-icon" sizes="72x72" href="http://placehold.it/72.png/000/fff">
+    <!-- Standard iPhone Touch Icon-->
+    <link rel="apple-touch-icon" sizes="57x57" href="http://placehold.it/57.png/000/fff">
+    <!-- Styles -->
+    <link href="{{url_for('static',filename='assets/css/lib/calendar2/pignose.calendar.min.css')}}" rel="stylesheet">
+    <link href="{{url_for('static',filename='assets/css/lib/chartist/chartist.min.css')}}" rel="stylesheet">
+    <link href="{{url_for('static',filename='assets/css/lib/font-awesome.min.css')}}" rel="stylesheet">
+    <link href="{{url_for('static',filename='assets/css/lib/themify-icons.css')}}" rel="stylesheet">
+    <link href="{{url_for('static',filename='assets/css/lib/owl.carousel.min.css')}}" rel="stylesheet" />
+    <link href="{{url_for('static',filename='assets/css/lib/owl.theme.default.min.css')}}" rel="stylesheet" />
+    <link href="{{url_for('static',filename='assets/css/lib/weather-icons.css')}}" rel="stylesheet" />
+    <link href="{{url_for('static',filename='assets/css/lib/menubar/sidebar.css')}}" rel="stylesheet">
+    <link href="{{url_for('static',filename='assets/css/lib/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{url_for('static',filename='assets/css/lib/helper.css')}}" rel="stylesheet">
+    <link href="{{url_for('static',filename='assets/css/style.css')}}" rel="stylesheet">
+    <style>
+        .pagination > li {margin-right:2px !important;}
+        .swal-wide{width:500px !important;height:200px !important;position:center !important;}
+        .dataTables_paginate a {    
+	        padding: 0px 12px 1px 7px !important;
+            color: white !important;
+            border: 0.5px solid white !important;
+            background-color:#5873fe !important;
+            cursor: pointer;}
+		select{font-size:14px !important;}
+        
+    </style>
+</head>
+
+<body>
+
+    <div class="sidebar sidebar-hide-to-small sidebar-shrink sidebar-gestures">
+        <div class="nano">
+            <div class="nano-content">
+                <ul>
+                    <div class="logo"><img src="{{url_for('static',filename='assets/images/Aurexuslogo.png')}}" width="130px" height="130px"></div>                    
+                    
+                    <li><a href="{{url_for('home')}}"><i class="ti-home"></i> Tableau de bord</a></li>                            
+                    
+					<!--<li><a href="ui-progressbar.html"><i class="ti-progress"></i> Progressbar</a></li>-->	
+					<li><a href="{{url_for('listdata')}}"><i class="ti-menu-alt"></i> Notices</a></li>
+                    <!--<li><a class="sidebar-sub-toggle"><i class="ti-layout-grid4-alt"></i> Table <span
+                                class="sidebar-collapse-icon ti-angle-down"></span></a>
+                        <ul>
+                            
+
+                            <li><a href="table-export.html">Datatable Export</a></li>
+                            <li><a href="table-row-select.html">Datatable Row Select</a></li>
+                            <li><a href="table-jsgrid.html">Editable </a></li>
+                        </ul>
+                    </li> --> 
+                    <!--<li><a href="form-basic.html"><i class="ti-view-list-alt"></i> Basic Form </a></li>-->                     
+                    <li><a href="{{url_for('logout')}}"><i class="ti-power-off"></i> Déconnexion</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /# sidebar -->
+    <div class="header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="float-left">
+                        <div class="hamburger sidebar-toggle">
+                            <span class="line"></span>
+                            <span class="line"></span>
+                            <span class="line"></span>
+                        </div>
+                    </div>
+                    <div class="float-left">
+                            <div class="">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="#">Notices</a></li>
+                                    
+                                </ol>
+                            </div>
+                    </div>
+                    <div class="float-left">
+                        <div class="">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a class='badge badge-warning'><b>PROJET CAEN</b></a></li>
+                                </ol>
+                            </div>
+                         
+                    </div>
+                    <div class="float-right">
+                        <div class="header-icon" disabled="disabled">
+                            <img  width="90px" height="30px" src="https://www.aurexus.com/wp-content/uploads/2021/10/1_80x50mm_adobe_illustratorwhite.png"></img>
+                        </div>
+                        <div class="header-icon">
+                            
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                             <img class="form-control-sm" src="./us_flag.png">English
+                            </button>
+                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="https://aurexusmedusa.azurewebsites.net/MedusaV3_1/fr/home.php"><img class="form-control-sm" src="./fr_flag.png">French</a>
+                             </div>
+                        </div>                       
+                        
+                        <div class="dropdown dib">
+                            <div class="header-icon" data-toggle="dropdown">
+                                <span class="user-avatar">{{session['name']}}
+                                    <i class="ti-angle-down f-s-10"></i>
+                                </span>
+                                <div class="drop-down dropdown-profile dropdown-menu dropdown-menu-right">
+                                    
+                                    <div class="dropdown-content-body">
+                                        <ul>                                            
+                                            <li>
+                                            <a href='#' target='_blank'>
+                                                <i class="ti-file"></i> Documentation</a>
+                                            </li>
+                                            <li>
+                                            <a href='#' onclick="myclickFunction()">
+                                                <i class="ti-power-off"></i> Logout</a>
+                                            </li>
+                                            
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-wrap">
+        <div class="main">
+            <div class="container-fluid">
+                
+                <!-- /# row -->
+                <section id="main-content">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div clas="card">
+                                <form method="POST" class="form-inline" action="?page_no=1">
+                                    <div class="form-group col-md-2">
+                                        <label>Lot</label>
+                                        <select  id="folder" name="dossier" class="form-control col-sm-12 p-1">
+                                            <option value="ALL">TOUT</option>
+                                            {{html_content_fil | safe}}
+                                        </select>
+                                    </div>
+                                    <div class="form-group  col-md-2">
+                                        <label>Traitement</label>
+                                         <select id="traitement" name="traitement" class="form-control col-sm-12 p-1">
+                                             <option value="ALL">TOUT</option>													
+                                             {{process | safe}}
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label>Code d'anomalie</label>
+                                        <select id="type" name="type" class="form-control col-sm-12 p-1">
+                                            <option value="ALL">TOUT</option>
+                                            {{anotype | safe}}
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label>Statut</label>
+                                        <select id="anscode" name="anscode" class="form-control col-sm-12 p-1">
+                                               <option value="ALL">TOUT</option>
+                                            <option value="Todo">TODO</option>
+                                            <option value="Ok">OK</option>
+                                            <option value="A revoir">A revoir</option>
+                                            <option value="A revoir, avec modification de la notice">A revoir, avec modification de la notice</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label>Filtrer par</label>
+                                        <select id="sort" name="sort" class="form-control col-sm-12 p-1">
+                                            <option value="order by z001_x0">IMAGE</option>
+                                               <option value="order by QCote">COTE</option>                                                	
+                                            <option value="order by traitement">TRAITEMENT</option>   
+                                            <option value="order by u990_b">ANO TYPE</option> 													
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label>Type de filtre</label>
+                                        <select id="sortype" name="sortype" class="form-control col-sm-12 p-1">
+                                               <option value="ASC">A-Z SORT</option>
+                                            <option value="DESC">Z-A SORT</option>
+                                                                                                
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-6">																								
+                                        <input id="serachword" name="searchword" class="form-control col-sm-8 p-2" placeholder="Mot clé">
+                                        </input>
+                                        <select id="keycol" name="keycol" class="form-control col-md-4  p-1" style="height:42px!important">   
+                                            <option value="qcote">Cote</option>
+                                            <option value="Notice_Traitee_Aff">Notice</option>													      													
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <input type="submit"  id="" name='filters'   class="btn btn-primary  input-flat col-sm-12" value="Filtre"></input>
+                                    </div>
+                                    <!-- <div class="form-group col-md-2">
+                                        <a href="#" target="_blank" class="btn btn-primary fa fa-save input-flat col-sm-12"> Export as Excel</a>
+                                    </div> -->
+                                </form>
+                            </div>
+                            <div class="card p-t-5">
+                                <div class="" style="float:right">
+                                    <ul class="pagination" style="float:right">
+                                        <li><a class="btn btn-sm btn-primary" href="{{ url_for('listdata', page_no=1) }}">Premier</a></li>
+                                        <li><a class="btn btn-sm btn-primary" href="{{ url_for('listdata', page_no=page_no-1) }}">Précédent</a></li>
+                                        <li><a class="btn btn-sm btn-primary" href="{{ url_for('listdata', page_no=page_no+1) }}">Suivant</a></li>
+                                        <li><a class="btn btn-sm btn-primary" href="{{ url_for('listdata', page_no=total_no_of_pages) }}">Dernier ››</a></li>
+                                    </ul>
+                                
+                                    <div style="padding: 10px 20px 0px;float:right;">
+                                        <strong>Page {{ page_no }} of {{ total_no_of_pages }} ({{ total_records }} records)</strong>
+                                    </div>
+                                </div>
+                                <div class="table-responsive">
+                                    {{ html_content | safe }}
+                                </div>
+                            </div>
+                        </div>                       
+                    </div>                  
+                                        
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="footer">
+                                <p>© Aurexus. - <a href="#">aurexus.com</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- jquery vendor -->
+    <script src="{{url_for('static',filename='assets/js/lib/jquery.min.js')}}"></script>
+    <script src="{{url_for('static',filename='assets/js/lib/jquery.nanoscroller.min.js')}}"></script>
+    <!-- nano scroller -->
+    <script src="{{url_for('static',filename='assets/js/lib/menubar/sidebar.js')}}"></script>
+    <script src="{{url_for('static',filename='assets/js/lib/preloader/pace.min.js')}}"></script>
+    <!-- sidebar -->
+
+    <script src="{{url_for('static',filename='assets/js/lib/bootstrap.min.js')}}"></script>
+    <script src="{{url_for('static',filename='assets/js/scripts.js')}}"></script>
+    <!-- bootstrap -->
+
+    <script src="{{url_for('static',filename='assets/js/lib/calendar-2/moment.latest.min.js')}}"></script>
+    <script src="{{url_for('static',filename='assets/js/lib/calendar-2/pignose.calendar.min.js')}}"></script>
+    <script src="{{url_for('static',filename='assets/js/lib/calendar-2/pignose.init.js')}}"></script>
+
+
+    <script src="{{url_for('static',filename='assets/js/lib/weather/jquery.simpleWeather.min.js')}}"></script>
+    <script src="{{url_for('static',filename='assets/js/lib/weather/weather-init.js')}}"></script>
+    <script src="{{url_for('static',filename='assets/js/lib/circle-progress/circle-progress.min.js')}}"></script>
+    <script src="{{url_for('static',filename='assets/js/lib/circle-progress/circle-progress-init.js')}}"></script>
+    <script src="{{url_for('static',filename='assets/js/lib/chartist/chartist.min.js')}}"></script>
+    <script src="{{url_for('static',filename='assets/js/lib/sparklinechart/jquery.sparkline.min.js')}}"></script>
+    <script src="{{url_for('static',filename='assets/js/lib/sparklinechart/sparkline.init.js')}}"></script>
+    <script src="{{url_for('static',filename='assets/js/lib/owl-carousel/owl.carousel.min.js')}}"></script>
+    <script src="{{url_for('static',filename='assets/js/lib/owl-carousel/owl.carousel-init.js')}}"></script>
+    <!-- scripit init-->
+    <script src="{{url_for('static',filename='assets/js/dashboard2.js')}}"></script>
+	
+	<!-- Get suggestions -->
+    <script>
+        function getSuggestions(button) {
+            const row = button.closest('tr');
+            const userInput = row.querySelector('.userInput').value;
+
+            fetch('/get_suggestions', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    user_input: userInput
+                })
+            })
+			
+            .then(response => response.json())
+            .then(data => {
+                const suggestionsDiv = row.querySelector('.suggestions');
+                suggestionsDiv.innerHTML = `Filtered Suggestions: ${data.suggestions.join(', ')}`;
+            })
+			
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+
+</html>
